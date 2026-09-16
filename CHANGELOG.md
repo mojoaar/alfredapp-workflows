@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-09-16
+
+### Added
+
+- **Nyheder** (`nyheder`) — shows the latest news from DR and TV 2, newest first, with the
+  source's icon on each row. DR is read from its official RSS feed; TV 2 is scraped because
+  it publishes no feed.
+- Release artifact: `nyheder.alfredworkflow`.
+
 ## [0.0.3] - 2026-09-16
 
 ### Changed
@@ -62,7 +71,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DeepSeek Chat requires your own API key, entered in Alfred's workflow configuration.
   No keys are stored in this repository.
 
-[Unreleased]: https://github.com/mojoaar/alfredapp-workflows/compare/v0.0.3...HEAD
+[Unreleased]: https://github.com/mojoaar/alfredapp-workflows/compare/v0.0.4...HEAD
+[0.0.4]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.4
 [0.0.3]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.3
 [0.0.2]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.2
 [0.0.1]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.1

@@ -8,6 +8,7 @@ Requires Alfred 5 with the [Powerpack](https://www.alfredapp.com/powerpack/).
 | [Work Apps](work-apps/) | `work` | `⌥⌘J` | Launches Outlook, Teams, Slack and Chrome (work profile) |
 | [Opencode Terminal](opencode-terminal/) | `opt` | `⌥⌘O` | Opens Ghostty and starts `opencode` in your home folder |
 | [DeepSeek Chat](deepseek-chat/) | `deepseek` | `⌥⌘A` | Chats with the DeepSeek API, with saved history |
+| [Nyheder](nyheder/) | `nyheder` | — | Shows the latest news from DR and TV 2, newest first |
 
 ## Download
 
@@ -19,6 +20,7 @@ Ready-to-import workflow files are attached to the
 | Work Apps | [work-apps.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/work-apps.alfredworkflow) |
 | Opencode Terminal | [opencode-terminal.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/opencode-terminal.alfredworkflow) |
 | DeepSeek Chat | [deepseek-chat.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/deepseek-chat.alfredworkflow) |
+| Nyheder | [nyheder.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/nyheder.alfredworkflow) |
 
 Double-click a downloaded file to import it, then re-record its hotkey — see
 [Hotkeys after import](#hotkeys-after-import).
