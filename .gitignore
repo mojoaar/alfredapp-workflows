@@ -1,0 +1,17 @@
+# Alfred keeps per-workflow configuration here, including API keys
+prefs.plist
+**/prefs.plist
+
+# Backups of workflow plists
+*.bak
+*.bak2
+*.bak3
+*.bak-*
+*.bak*
+
+# Build output
+dist/
+*.alfredworkflow
+
+# macOS
+.DS_Store
