@@ -133,29 +133,29 @@ Trigger: keyword "work" or hotkey ⌥⌘J (Option+Command+J).</string>
 		<key>5B0A1C2D-0001-4A00-8000-000000000001</key>
 		<dict>
 			<key>xpos</key>
-			<real>150.0</real>
+			<real>150</real>
 			<key>ypos</key>
-			<real>150.0</real>
+			<real>150</real>
 		</dict>
 		<key>5B0A1C2D-0002-4A00-8000-000000000002</key>
 		<dict>
 			<key>xpos</key>
-			<real>150.0</real>
+			<real>150</real>
 			<key>ypos</key>
-			<real>280.0</real>
+			<real>280</real>
 		</dict>
 		<key>5B0A1C2D-0003-4A00-8000-000000000003</key>
 		<dict>
 			<key>xpos</key>
-			<real>430.0</real>
+			<real>430</real>
 			<key>ypos</key>
-			<real>215.0</real>
+			<real>215</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
 	<key>version</key>
-	<string>0.0.1</string>
+	<string>0.0.3</string>
 	<key>webaddress</key>
 	<string>https://johansen.foo</string>
 </dict>

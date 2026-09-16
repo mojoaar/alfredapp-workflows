@@ -129,29 +129,29 @@
 		<key>7A1B2C3D-0001-4B00-9000-000000000001</key>
 		<dict>
 			<key>xpos</key>
-			<real>150.0</real>
+			<real>150</real>
 			<key>ypos</key>
-			<real>150.0</real>
+			<real>150</real>
 		</dict>
 		<key>7A1B2C3D-0002-4B00-9000-000000000002</key>
 		<dict>
 			<key>xpos</key>
-			<real>150.0</real>
+			<real>150</real>
 			<key>ypos</key>
-			<real>280.0</real>
+			<real>280</real>
 		</dict>
 		<key>7A1B2C3D-0003-4B00-9000-000000000003</key>
 		<dict>
 			<key>xpos</key>
-			<real>430.0</real>
+			<real>430</real>
 			<key>ypos</key>
-			<real>215.0</real>
+			<real>215</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
 	<key>version</key>
-	<string>0.0.1</string>
+	<string>0.0.3</string>
 	<key>webaddress</key>
 	<string>https://johansen.foo</string>
 </dict>
