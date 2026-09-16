@@ -1,7 +1,7 @@
 # Alfred Workflows
 
 A small collection of [Alfred 5](https://www.alfredapp.com/) workflows for macOS.
-Requires Alfred 5 with the Powerpack.
+Requires Alfred 5 with the [Powerpack](https://www.alfredapp.com/powerpack/).
 
 | Workflow | Keyword | Hotkey | What it does |
 | --- | --- | --- | --- |
@@ -9,9 +9,24 @@ Requires Alfred 5 with the Powerpack.
 | [Opencode Terminal](opencode-terminal/) | `opt` | `⌥⌘O` | Opens Ghostty and starts `opencode` in your home folder |
 | [DeepSeek Chat](deepseek-chat/) | `deepseek` | `⌥⌘A` | Chats with the DeepSeek API, with saved history |
 
-## Install
+## Download
 
-Build an importable `.alfredworkflow` from a folder:
+Ready-to-import workflow files are attached to the
+[latest release](https://github.com/mojoaar/alfredapp-workflows/releases/latest):
+
+| Workflow | File |
+| --- | --- |
+| Work Apps | [work-apps.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/work-apps.alfredworkflow) |
+| Opencode Terminal | [opencode-terminal.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/opencode-terminal.alfredworkflow) |
+| DeepSeek Chat | [deepseek-chat.alfredworkflow](https://github.com/mojoaar/alfredapp-workflows/releases/latest/download/deepseek-chat.alfredworkflow) |
+
+Double-click a downloaded file to import it, then re-record its hotkey — see
+[Hotkeys after import](#hotkeys-after-import).
+
+## Building from source
+
+Each workflow is a folder that Alfred can import directly. To build an importable
+`.alfredworkflow` file yourself:
 
 ```bash
 ./scripts/package.sh deepseek-chat       # -> dist/deepseek-chat.alfredworkflow
@@ -41,6 +56,12 @@ as a pre-commit hook:
 ```bash
 ln -sf ../../scripts/check-secrets.sh .git/hooks/pre-commit
 ```
+
+## Versioning
+
+Releases follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and are
+documented in [CHANGELOG.md](CHANGELOG.md), which follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## License
 

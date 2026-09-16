@@ -155,7 +155,7 @@ Trigger: keyword "work" or hotkey ⌥⌘J (Option+Command+J).</string>
 	<key>userconfigurationconfig</key>
 	<array/>
 	<key>version</key>
-	<string>1.0</string>
+	<string>0.0.1</string>
 	<key>webaddress</key>
 	<string>https://johansen.foo</string>
 </dict>

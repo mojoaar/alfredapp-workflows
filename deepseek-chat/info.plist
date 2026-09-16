@@ -2098,7 +2098,7 @@ Adapted from Alfred's official ChatGPT workflow (BSD 3-Clause licensed).
 		<string></string>
 	</dict>
 	<key>version</key>
-	<string>1.0</string>
+	<string>0.0.1</string>
 	<key>webaddress</key>
 	<string>https://johansen.foo</string>
 </dict>
