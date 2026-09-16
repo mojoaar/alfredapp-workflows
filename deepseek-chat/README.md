@@ -12,13 +12,17 @@ retargeted to DeepSeek.
 ## Setup
 
 1. Create an API key at <https://platform.deepseek.com/api_keys>.
-2. Open **Alfred Preferences -> Workflows -> DeepSeek Chat -> Configure**.
-3. Paste the key into **DeepSeek API Key**.
+2. Import the workflow by double-clicking the `.alfredworkflow` file.
+3. Re-record the hotkey: **Alfred Preferences -> Workflows -> DeepSeek Chat**, click the
+   Hotkey object, then press `⌥⌘A`. Alfred strips hotkeys from imported workflows.
+4. Open **Configure** and paste the key into **DeepSeek API Key**.
 
 Alfred stores the key in this workflow's `prefs.plist`, which is git-ignored and never
 committed.
 
 ## Shortcuts
+
+### In the chat
 
 | Shortcut | Action |
 | --- | --- |
@@ -30,15 +34,43 @@ committed.
 
 Answers are streamed token by token into Alfred's Text View.
 
+### Elsewhere
+
+| Shortcut | Action |
+| --- | --- |
+| `⌥↩` on the `deepseek` keyword | Browse saved chats |
+| `⌘↩` on the `deepseek` keyword | Start a new chat |
+| `⌘↩` in the history list | Delete the selected chat (moves it to the Trash) |
+| `↩` on the **Ask DeepSeek** universal action | Send the selected text to DeepSeek |
+
+The workflow is also available through the **Ask DeepSeek** universal action and Alfred's
+**Fallback Search** (`deepseek <question>`). The separate **Add Context** keyword lets you
+prepend a line of text to the next question.
+
+## Reasoning
+
+DeepSeek models think before answering, and **thinking is on by default**. While the model
+thinks, the chain of thought streams as a quote under **⊚ Thinking**, above the answer as
+it arrives. Once the answer is complete the chain of thought disappears, so saved chats,
+archived chats and "Copy the whole chat" only ever contain the final answers.
+
+| Reasoning | What it does |
+| --- | --- |
+| Default (Thinking On) | Sends nothing extra: thinking on, high effort |
+| Low Effort | Faster, shorter reasoning |
+| Max Effort | Slowest, most thorough reasoning |
+| Thinking Off | Disables thinking entirely — the fastest replies |
+
 ## Configuration
 
 | Setting | Default | Notes |
 | --- | --- | --- |
 | DeepSeek API Key | — | required |
 | Keyword | `deepseek` | |
-| Save chat history | on | |
+| Keep History | on | save the current chat when starting a new one |
 | Model | `deepseek-flash` | alternative: `deepseek-v4-pro` |
-| Context | 24 | how many older question/answer pairs to send |
+| Reasoning | Default (Thinking On) | see [Reasoning](#reasoning) |
+| Context | 24 | how many older messages to send (24 ≈ 12 questions and answers) |
 | Timeout | 10 s | |
 | System Prompt | — | optional |
 
@@ -48,8 +80,10 @@ override the endpoint and model. The endpoint defaults to
 
 ## Files created at runtime
 
-- `${alfred_workflow_data}/chat.json` — the saved conversation
+- `${alfred_workflow_data}/chat.json` — the current conversation
+- `${alfred_workflow_data}/archive/` — one file per archived conversation, shown in the history browser
 - `${alfred_workflow_cache}/stream.txt` — streaming response buffer
+- `${alfred_workflow_cache}/pid.txt` — process id used by "Stop generating"
 
 ## License
 

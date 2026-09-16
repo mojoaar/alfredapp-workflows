@@ -28,6 +28,7 @@ function writeFile(path, text) {
 }
 
 function readChat(path) {
+  if (!fileExists(path)) return []
   const chatString = $.NSString.stringWithContentsOfFileEncodingError(path, $.NSUTF8StringEncoding, undefined).js
   return JSON.parse(chatString)
 }
@@ -58,7 +59,29 @@ function markdownChat(messages, ignoreLastInterrupted = true) {
   }, "")
 }
 
-function startStream(apiEndpoint, apiKey, model, systemPrompt, contextChat, streamFile, pidStreamFile, timeoutSeconds) {
+// Partial answer while streaming: chain of thought as a quote, then the answer so far
+function markdownStream(reasoning, content) {
+  if (!reasoning) return content
+
+  const quote = reasoning
+    .split("\n")
+    .map(line => `> ${line}`)
+    .join("\n")
+
+  return content ? `# ⊚ Thinking\n\n${quote}\n\n${content}` : `# ⊚ Thinking\n\n${quote}`
+}
+
+function requestBody(model, messages, reasoning) {
+  const body = { model: model, messages: messages, stream: true }
+
+  // DeepSeek enables thinking mode by default, so "default" sends nothing
+  if (reasoning === "low" || reasoning === "max") body["reasoning_effort"] = reasoning
+  if (reasoning === "off") body["thinking"] = { type: "disabled" }
+
+  return body
+}
+
+function startStream(apiEndpoint, apiKey, model, reasoning, systemPrompt, contextChat, streamFile, pidStreamFile, timeoutSeconds) {
   $.NSFileManager.defaultManager.createFileAtPathContentsAttributes(streamFile, undefined, undefined) // Create empty file
 
   const messages = systemPrompt ?
@@ -75,7 +98,7 @@ function startStream(apiEndpoint, apiKey, model, systemPrompt, contextChat, stre
     "--silent", "--no-buffer",
     "--header", "Content-Type: application/json",
     "--header", `Authorization: Bearer ${apiKey}`,
-    "--data", JSON.stringify({ model: model, messages: messages, stream: true }),
+    "--data", JSON.stringify(requestBody(model, messages, reasoning)),
     "--output", streamFile
   ]
 
@@ -131,8 +154,18 @@ function readStream(streamFile, chatFile, pidStreamFile, timeoutSeconds) {
     .map(item => item.replace(/^data: /, "")) // Remove extraneous "data: "
     .flatMap(item => { try { return JSON.parse(item) } catch { return [] } }) // Parse as JSON
 
-  const responseText = chunks.map(item => item["choices"][0]?.["delta"]["content"]).join("")
-  const finishReason = chunks.slice(-1)[0]?.["choices"][0]["finish_reason"]
+  const { content: responseText, reasoning: reasoningText } = chunks.reduce(
+    (accumulator, item) => {
+      const delta = item["choices"]?.[0]?.["delta"]
+      if (!delta) return accumulator
+      if (delta["content"]) accumulator.content += delta["content"]
+      if (delta["reasoning_content"]) accumulator.reasoning += delta["reasoning_content"]
+      return accumulator
+    },
+    { content: "", reasoning: "" }
+  )
+
+  const finishReason = chunks.slice(-1)[0]?.["choices"]?.[0]?.["finish_reason"]
 
   // If reponse is not finished
   if (!finishReason) {
@@ -149,7 +182,7 @@ function readStream(streamFile, chatFile, pidStreamFile, timeoutSeconds) {
 
       // Stop
       return JSON.stringify({
-        response: `${responseText} [Connection Stalled]`,
+        response: `${markdownStream(reasoningText, responseText)} [Connection Stalled]`,
         footer: "You can ask DeepSeek to continue the answer",
         behaviour: { response: "replacelast", scroll: "end" }
       })
@@ -165,7 +198,7 @@ function readStream(streamFile, chatFile, pidStreamFile, timeoutSeconds) {
     return JSON.stringify({
       rerun: 0.1,
       variables: { streaming_now: true },
-      response: responseText,
+      response: markdownStream(reasoningText, responseText),
       behaviour: { response: "replacelast", scroll: "end" }
     })
   }
@@ -203,6 +236,7 @@ function run(argv) {
   const apiEndpoint = apiEndpointInitHasPath ? apiEndpointInit : `${apiEndpointInit}/v1/chat/completions`
   const systemPrompt = envVar("system_prompt")
   const model = envVar("deepseek_model_override") ? envVar("deepseek_model_override") : envVar("deepseek_model")
+  const reasoning = envVar("deepseek_reasoning") || "default"
   const chatFile = `${envVar("alfred_workflow_data")}/chat.json`
   const pidStreamFile = `${envVar("alfred_workflow_cache")}/pid.txt`
   const streamFile = `${envVar("alfred_workflow_cache")}/stream.txt`
@@ -235,7 +269,7 @@ function run(argv) {
   const contextChat = ongoingChat.slice(-maxContext)
 
   // Make API request, write chat file, and start loop
-  startStream(apiEndpoint, apiKey, model, systemPrompt, contextChat, streamFile, pidStreamFile, timeoutSeconds)
+  startStream(apiEndpoint, apiKey, model, reasoning, systemPrompt, contextChat, streamFile, pidStreamFile, timeoutSeconds)
   appendChat(chatFile, appendQuery)
 
   return JSON.stringify({

@@ -334,6 +334,16 @@
 				<key>vitoclose</key>
 				<true/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>DE7B696D-D4F3-4E2C-8907-45E3EDDFA22F</string>
+				<key>modifiers</key>
+				<integer>1048576</integer>
+				<key>modifiersubtext</key>
+				<string>Delete chat</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>B31B4473-3184-4D6C-B4D9-78FC5DCC7D00</key>
 		<array>
@@ -477,6 +487,19 @@
 				<string>Start new chat</string>
 				<key>vitoclose</key>
 				<true/>
+			</dict>
+		</array>
+		<key>DE7B696D-D4F3-4E2C-8907-45E3EDDFA22F</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>B2F04B2C-63AD-4A6D-9A81-7F333D0A075A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
 			</dict>
 		</array>
 		<key>E5D42111-A4E5-4C7E-AED9-B0A379A66986</key>
@@ -1607,6 +1630,35 @@ function run() {
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>function run(argv) {
+  const filePath = argv[0]
+  if (!filePath) return
+
+  const fileURL = $.NSURL.fileURLWithPath(filePath)
+  $.NSFileManager.defaultManager.trashItemAtURLResultingItemURLError(fileURL, undefined, undefined)
+}</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>7</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>DE7B696D-D4F3-4E2C-8907-45E3EDDFA22F</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>## DeepSeek Chat
@@ -1886,6 +1938,13 @@ Adapted from Alfred's official ChatGPT workflow (BSD 3-Clause licensed).
 			<key>ypos</key>
 			<real>325.0</real>
 		</dict>
+		<key>DE7B696D-D4F3-4E2C-8907-45E3EDDFA22F</key>
+		<dict>
+			<key>xpos</key>
+			<real>760.0</real>
+			<key>ypos</key>
+			<real>615.0</real>
+		</dict>
 		<key>E5D42111-A4E5-4C7E-AED9-B0A379A66986</key>
 		<dict>
 			<key>xpos</key>
@@ -2021,6 +2080,40 @@ Adapted from Alfred's official ChatGPT workflow (BSD 3-Clause licensed).
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>default</key>
+				<string>default</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Default (Thinking On)</string>
+						<string>default</string>
+					</array>
+					<array>
+						<string>Low Effort</string>
+						<string>low</string>
+					</array>
+					<array>
+						<string>Max Effort</string>
+						<string>max</string>
+					</array>
+					<array>
+						<string>Thinking Off</string>
+						<string>off</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>DeepSeek thinks before answering. Default uses the model default (thinking on, high effort).</string>
+			<key>label</key>
+			<string>Reasoning</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>deepseek_reasoning</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>defaultvalue</key>
 				<integer>24</integer>
 				<key>markercount</key>
@@ -2098,7 +2191,7 @@ Adapted from Alfred's official ChatGPT workflow (BSD 3-Clause licensed).
 		<string></string>
 	</dict>
 	<key>version</key>
-	<string>0.0.1</string>
+	<string>0.0.2</string>
 	<key>webaddress</key>
 	<string>https://johansen.foo</string>
 </dict>

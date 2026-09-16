@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-09-16
+
+### Added
+
+- **DeepSeek Chat** streams the model's chain of thought while it thinks, under a
+  **⊚ Thinking** heading, and drops it once the answer is complete.
+- **DeepSeek Chat** gains a **Reasoning** setting: Default (Thinking On), Low Effort,
+  Max Effort and Thinking Off.
+- **DeepSeek Chat** can delete a saved chat with `⌘↩` in the history browser (the file
+  goes to the Trash, and the list refreshes).
+
+### Changed
+
+- **DeepSeek Chat** README documents the keyword modifiers, the universal action and
+  fallback search, the archive folder, the `pid.txt` file, and that hotkeys must be
+  re-recorded after import.
+
+### Fixed
+
+- **DeepSeek Chat** no longer fails with `SyntaxError: JSON Parse error` when the chat
+  file does not exist yet.
+- **DeepSeek Chat** no longer throws when a streaming chunk omits the content delta or
+  the `choices` array.
+
 ## [0.0.1] - 2026-09-16
 
 ### Added
@@ -30,5 +54,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DeepSeek Chat requires your own API key, entered in Alfred's workflow configuration.
   No keys are stored in this repository.
 
-[Unreleased]: https://github.com/mojoaar/alfredapp-workflows/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/mojoaar/alfredapp-workflows/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.2
 [0.0.1]: https://github.com/mojoaar/alfredapp-workflows/releases/tag/v0.0.1
